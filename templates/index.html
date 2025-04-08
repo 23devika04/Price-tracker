@@ -8,46 +8,104 @@
     <style>
       body {
         font-family: "Arial", sans-serif;
-        background-color: #f8f9fa;
+        background: linear-gradient(135deg, #17153B, #2E236C, #433D8B, #C8ACD6);
         text-align: center;
         padding: 50px;
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
       }
 
-      h2 {
-        color: #333;
-        margin-bottom: 10px;
-      }
-
-      form {
-        background: #ffffff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-        display: inline-block;
+      .splash-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
         width: 100%;
-        max-width: 450px;
+        height: 100%;
+        background: #17153B;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 24px;
+        z-index: 9999;
+        animation: fadeOut 2s ease-out forwards;
+        animation-delay: 2s;
+      }
+
+      .splash-title {
+        font-size: 48px;
+        font-weight: bold;
+        color: #C8ACD6;
+      }
+
+      .splash-subtitle {
+        font-size: 24px;
+        color: #C8ACD6;
+      }
+
+      @keyframes fadeOut {
+        to {
+          opacity: 0;
+          visibility: hidden;
+        }
+      }
+      h1 {
+        font-size: 52px;
+        font-weight: bold;
+        color: #C8ACD6;
+        margin-bottom: 5px;
+      }
+
+      h3 {
+        font-size: 26px;
+        color: #C8ACD6;
         margin-bottom: 20px;
       }
+      .container {
+        margin: 10px;
+        width: 90%;
+        max-width: 900px;
+        background: #433D8B;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+      }
 
-      label {
-        display: block;
-        font-weight: bold;
-        margin-bottom: 5px;
-        text-align: left;
+      .input-container {
+        background: #2E236C;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 500px;
+      }
+
+      .input-container h2 {
+        color: #C8ACD6;
+        margin-bottom: 15px;
       }
 
       input[type="text"] {
-        width: 100%;
+        width: 85%;
         padding: 12px;
         margin-bottom: 10px;
-        border: 1px solid #ccc;
+        border: 1px solid #C8ACD6;
         border-radius: 5px;
         font-size: 16px;
         outline: none;
       }
 
       button {
-        background: #007bff;
+        background: #C8ACD6;
         color: white;
         padding: 12px 18px;
         border: none;
@@ -58,156 +116,127 @@
       }
 
       button:hover {
-        background: #0056b3;
-      }
-
-      .container {
-        width: 90%;
-        max-width: 900px;
-        margin: auto;
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        background: #a78bbf;
       }
 
       table {
         width: 100%;
         margin-top: 20px;
         border-collapse: collapse;
-        overflow-x: auto;
-        display: block;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #2E236C;
+        color: white;
       }
 
       th, td {
         padding: 12px;
-        border: 1px solid #ddd;
+        border: 1px solid #C8ACD6;
         text-align: center;
       }
 
       th {
-        background: #007bff;
-        color: white;
+        background: #C8ACD6;
+        color: #17153B;
         font-weight: bold;
       }
 
       tr:nth-child(even) {
-        background: #f9f9f9;
-      }
-
-      .highlight {
-        font-size: 18px;
-        font-weight: bold;
-        color: #28a745;
+        background: #433D8B;
       }
 
       #chart-container {
-        height: 500px;
+        height: 300px;
         margin-top: 20px;
         padding: 20px;
-        background: #fff;
+        background: #2E236C;
         border-radius: 10px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
       }
     </style>
   </head>
   <body>
-    <form method="POST">
-      <label for="amazon_link">Product Link:</label>
-      <input type="text" id="amazon_link" name="amazon_link" placeholder="Enter Product Link" required />
-      <button type="submit">Check Price History</button>
-    </form>
+    <div class="splash-screen">
+      <div class="splash-title">TagTrack</div>
+      <div class="splash-subtitle">Prices and Info at a Glance</div>
+    </div>
+    <div class="title-container">
+        <h1>TagTrack</h1>
+        <h3>Prices and Info at a Glance</h3>
+      </div>
+    <div class="input-container">
+      <h2>Enter Product URL</h2>
+      <p>Track the latest price trends and predictions for your product.</p>
+      <form method="POST">
+        <input type="text" name="amazon_link" placeholder="Enter Product Link" required />
+        <button type="submit">Check Price History</button>
+      </form>
+    </div>
 
     {% if supporting_text %}
     <div class="container">
-      <h2>Should you buy at this price?</h2>
+      <h2>Why Should You Buy This?</h2>
       <ul>
         {% for text in supporting_text %}
         <li>{{ text }}</li>
         {% endfor %}
       </ul>
     </div>
-    {% endif %} 
+    {% endif %}
 
     {% if product_details %}
     <div class="container">
       <h2>Product Details</h2>
-      <h4>Current Price: ₹{{ price_history[-1].y }}</h4> 
-      <img src="{{ product_image }}" alt="Product Image" style="max-width: 200px; border-radius: 8px" />
-      <div id="product-details">{{ product_details | safe }}</div>
+      <h4>Current Price: ₹{{ price_history[-1].y }}</h4>
+      <img src="{{ product_image }}" style="max-width: 200px; border-radius: 8px" alt="Product Image" />
+      <div>{{ product_details | safe }}</div>
     </div>
-    {% endif %} 
+    {% endif %}
+
+    {% if table_html %}
+    <div class="container">
+        <h2>Predicted Prices for Next 30 Days</h2>
+        <table>
+            {{ table_html | safe }}
+        </table>
+    </div>
+    {% endif %}
 
     {% if price_history %}
     <div class="container">
       <h2>Price History</h2>
-      <p class="highlight">
-        Highest Price: ₹{{ max_price }} | Lowest Price: ₹{{ min_price }}
-      </p>
-
+      <p>Highest Price: ₹{{ max_price }} | Lowest Price: ₹{{ min_price }}</p>
       <div id="chart-container">
         <canvas id="priceChart"></canvas>
       </div>
-
-      {% if table_html %}
-      <div class="container">
-        <h2>Predicted prices for next 30 days</h2>
-        <div class="table-responsive">
-          {{ table_html | safe }}
-        </div>
-      </div>
-      {% endif %}
     </div>
 
     <script>
       const ctx = document.getElementById('priceChart').getContext('2d');
-      const priceData = {{ price_history | tojson | safe }};
-
-      if (priceData.length > 0) {
-        const labels = priceData.map(entry => entry.x);
-        const data = priceData.map(entry => entry.y);
-
-        new Chart(ctx, {
+      const labels = {{ price_history | tojson | safe }}.map(entry => entry.x);
+      const data = {{ price_history | tojson | safe }}.map(entry => entry.y);
+      new Chart(ctx, {
           type: 'line',
           data: {
-            labels: labels,
-            datasets: [{
-              label: 'Price Over Time',
-              data: data,
-              borderColor: '#007bff',
-              backgroundColor: 'rgba(0, 123, 255, 0.2)',
-              borderWidth: 2,
-              fill: true
-            }]
+              labels: labels,
+              datasets: [{
+                  label: 'Price Over Time',
+                  data: data,
+                  borderColor: '#C8ACD6',
+                  backgroundColor: 'rgba(200, 172, 214, 0.2)',
+                  borderWidth: 2,
+                  fill: true
+              }]
           },
           options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: {
-              tooltip: {
-                enabled: true,
-                mode: 'index',
-                intersect: false
+              responsive: true,
+              maintainAspectRatio: false,
+              scales: {
+                  x: { ticks: { color: '#FFFFFF' }, title: { display: true, text: 'Date & Time', color: '#FFFFFF' } },
+                  y: { ticks: { color: '#FFFFFF' }, title: { display: true, text: 'Price (₹)', color: '#FFFFFF' }, beginAtZero: false }
               }
-            },
-            scales: {
-              x: {
-                title: {
-                  display: true,
-                  text: 'Date & Time'
-                }
-              },
-              y: {
-                title: {
-                  display: true,
-                  text: 'Price (₹)'
-                },
-                beginAtZero: false
-              }
-            }
           }
-        });
-      }
+      });
     </script>
     {% endif %}
   </body>
